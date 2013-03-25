@@ -5,7 +5,7 @@
 var path = require('path');
 
 exports.config = {
-  debug: true,
+  debug: false,
   name: 'Pomelo Club',
   description: 'Pomelo Club 是专业讨论 pomelo 的官方社区',
   version: '0.2.2',
