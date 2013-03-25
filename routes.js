@@ -22,7 +22,7 @@ var tools = require('./controllers/tools');
 var auth = require('./midderwares/auth');
 var status = require('./controllers/status');
 
-module.exports = function (app) {
+module.exports = function(app) {
   // home page
   app.get('/', site.index);
 
@@ -66,11 +66,11 @@ module.exports = function (app) {
   app.get('/tags/edit', tag.edit_tags);
   app.get('/tag/:name', tag.list_topic);
   // 编辑界面
-  app.get('/tag/:name/edit', auth, tag.edit);
+  app.get('/tag/:name/edit', auth.adminRequired, tag.view);
   app.get('/tag/:name/delete', tag.delete);
   app.post('/tag/add', tag.add);
   // 更新
-  app.post('/tag/:name/edit', auth, tag.update);
+  app.post('/tag/:name/edit', auth.adminRequired, tag.update);
   app.post('/tag/collect', tag.collect);
   app.post('/tag/de_collect', auth.userRequired, tag.de_collect);
 
