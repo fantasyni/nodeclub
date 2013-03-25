@@ -13,7 +13,7 @@ exports.config = {
   // site settings
   site_headers: [
     '<meta name="author" content="pomelo@NetEase" />', ],
-  host: 'http://pomelo.netease.com/club/',
+  host: 'localhost',
   site_logo: '', // default is `name`
   site_navs: [
   // [ path, title, [target=''] ]
