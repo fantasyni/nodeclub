@@ -13,7 +13,7 @@ exports.config = {
   // site settings
   site_headers: [
     '<meta name="author" content="pomelo@NetEase" />', ],
-  host: 'localhost',
+  host: '0.0.0.0',
   site_logo: '', // default is `name`
   site_navs: [
   // [ path, title, [target=''] ]
@@ -35,7 +35,7 @@ exports.config = {
   // RSS
   rss: {
     title: 'Pomelo：pomelo专业中文社区',
-    link: 'http://pomelo.netease.com/club/',
+    link: 'http://pomelo.netease.com/forum/',
     language: 'zh-cn',
     description: 'Pomelo：pomelo专业中文社区',
 
