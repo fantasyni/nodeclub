@@ -13,14 +13,14 @@ exports.config = {
   // site settings
   site_headers: [
     '<meta name="author" content="pomelo@NetEase" />', ],
-  host: 'localhost',
+  host: 'http://pomelo.netease.com/club/',
   site_logo: '', // default is `name`
   site_navs: [
   // [ path, title, [target=''] ]
   ['/about', '关于'], ],
   site_static_host: '', // 静态文件存储域名
   site_enable_search_preview: false, // 开启google search preview
-  site_google_search_domain: 'cnodejs.org', // google search preview中要搜索的域名
+  site_google_search_domain: 'pomelo.netease.com', // google search preview中要搜索的域名
 
   upload_dir: path.join(__dirname, 'public', 'user_data', 'images'),
 
@@ -35,7 +35,7 @@ exports.config = {
   // RSS
   rss: {
     title: 'Pomelo：pomelo专业中文社区',
-    link: 'http://cnodejs.org',
+    link: 'http://pomelo.netease.com/club/',
     language: 'zh-cn',
     description: 'Pomelo：pomelo专业中文社区',
 
