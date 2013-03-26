@@ -1,8 +1,8 @@
 // static page
 // About
 exports.about = function(req, res, next) {
-	//res.render('static/about');
-	res.redirect('http://pomelo.netease.com/');
+	res.render('static/about');
+	//res.redirect('http://pomelo.netease.com/');
 };
 
 // FAQ

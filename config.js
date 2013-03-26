@@ -86,7 +86,11 @@ exports.config = {
   admins: {
     admin: true,
     fantasyni: true,
-    xiecc: true
+    xiecc: true,
+    demon: true,
+    numbcoder: true,
+    py8765: true,
+    changchang: true
   },
 
   // [ { name: 'plugin_name', options: { ... }, ... ]
