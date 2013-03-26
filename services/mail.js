@@ -4,7 +4,8 @@ var EventProxy = require('eventproxy');
 
 var transport = mailer.createTransport('SMTP', config.mail_opts);
 
-var SITE_ROOT_URL = 'http://' + config.hostname + (config.port !== 80 ? ':' + config.port : '');
+var SITE_ROOT_URL = 'http://nodejs.netease.com';
+//config.hostname + (config.port !== 80 ? ':' + config.port : '');
 
 /**
  * control mailer
@@ -14,9 +15,9 @@ var mailEvent = new EventProxy();
 /**
  * when need to send an email, start to check the mails array and send all of emails.
  */
-mailEvent.on("getMail", function (mail) {
-    // 遍历邮件数组，发送每一封邮件，如果有发送失败的，就再压入数组，同时触发mailEvent事件
-  transport.sendMail(mail, function (err) {
+mailEvent.on("getMail", function(mail) {
+  // 遍历邮件数组，发送每一封邮件，如果有发送失败的，就再压入数组，同时触发mailEvent事件
+  transport.sendMail(mail, function(err) {
     if (err) {
       // 写为日志
       console.log(err);
@@ -28,7 +29,7 @@ mailEvent.on("getMail", function (mail) {
  * Send an email
  * @param {Object} data 邮件对象
  */
-var sendMail = function (data) {
+var sendMail = function(data) {
   if (config.debug) {
     console.log('******************** 在测试环境下，不会真的发送邮件*******************');
     for (var k in data) {
@@ -46,7 +47,7 @@ var sendMail = function (data) {
  * @param {String} name 接收人的用户名
  * @param {String} email 接受人的邮件地址
  */
-exports.sendActiveMail = function (who, token, name, email) {
+exports.sendActiveMail = function(who, token, name, email) {
   var from = config.mail_opts.auth.user;
   var to = who;
   var subject = config.name + '社区帐号激活';
@@ -70,7 +71,7 @@ exports.sendActiveMail = function (who, token, name, email) {
  * @param {String} token 重置用的token字符串
  * @param {String} name 接收人的用户名
  */
-exports.sendResetPassMail = function (who, token, name) {
+exports.sendResetPassMail = function(who, token, name) {
   var from = config.mail_opts.auth.user;
   var to = who;
   var subject = config.name + '社区密码重置';
@@ -93,7 +94,7 @@ exports.sendResetPassMail = function (who, token, name) {
  * @param {String} who 接收人的邮件地址
  * @param {Object} msg 发送的消息对象
  */
-exports.sendReplyMail = function (who, msg) {
+exports.sendReplyMail = function(who, msg) {
   var from = config.mail_opts.auth.user;
   var to = who;
   var subject = config.name + ' 新消息';
@@ -118,7 +119,7 @@ exports.sendReplyMail = function (who, msg) {
  * @param {String} who 接收人的邮件地址
  * @param {Object} msg 发送的消息对象
  */
-exports.sendAtMail = function (who, msg) {
+exports.sendAtMail = function(who, msg) {
   var from = config.mail_opts.auth.user;
   var to = who;
   var subject = config.name + ' 新消息';
