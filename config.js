@@ -9,7 +9,7 @@ exports.config = {
   name: 'Pomelo Club',
   description: 'Pomelo Club 是专业讨论 pomelo 的官方社区',
   version: '0.2.2',
-
+  hostname: 'nodejs.netease.com',
   // site settings
   site_headers: [
     '<meta name="author" content="pomelo@NetEase" />', ],
@@ -35,7 +35,7 @@ exports.config = {
   // RSS
   rss: {
     title: 'Pomelo：pomelo专业中文社区',
-    link: 'http://pomelo.netease.com/forum/',
+    link: 'http://nodejs.netease.com/',
     language: 'zh-cn',
     description: 'Pomelo：pomelo专业中文社区',
 
