@@ -5,7 +5,7 @@
 var path = require('path');
 
 exports.config = {
-  debug: false,
+  debug: true,
   name: 'Pomelo Club',
   description: 'Pomelo Club 是专业讨论 pomelo 的官方社区',
   version: '0.2.2',
@@ -84,7 +84,9 @@ exports.config = {
 
   // admin 可删除话题，编辑标签，设某人为达人
   admins: {
-    admin: true
+    admin: true,
+    fantasyni: true,
+    xiecc: true
   },
 
   // [ { name: 'plugin_name', options: { ... }, ... ]
