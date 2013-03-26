@@ -35,7 +35,7 @@ exports.config = {
   // RSS
   rss: {
     title: 'Pomelo：pomelo专业中文社区',
-    link: 'http://nodejs.netease.com/',
+    link: 'http://nodejs.netease.com',
     language: 'zh-cn',
     description: 'Pomelo：pomelo专业中文社区',
 
