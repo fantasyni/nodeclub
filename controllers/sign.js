@@ -9,11 +9,11 @@ var Message = require('../proxy').Message;
 var mail = require('../services/mail');
 
 //sign up
-exports.showSignup = function (req, res) {
+exports.showSignup = function(req, res) {
   res.render('sign/signup');
 };
 
-exports.signup = function (req, res, next) {
+exports.signup = function(req, res, next) {
   var name = sanitize(req.body.name).trim();
   name = sanitize(name).xss();
   var loginname = name.toLowerCase();
@@ -25,41 +25,80 @@ exports.signup = function (req, res, next) {
   var re_pass = sanitize(req.body.re_pass).trim();
   re_pass = sanitize(re_pass).xss();
 
+  if (/pomelo/i.test(name) || /lordofpomelo/i.test(name) || /pomelonode/i.test(name)) {
+    res.render('sign/signup', {
+      error: '用户已注册。',
+      name: name,
+      email: email
+    });
+    return;
+  }
+
   if (name === '' || pass === '' || re_pass === '' || email === '') {
-    res.render('sign/signup', {error: '信息不完整。', name: name, email: email});
+    res.render('sign/signup', {
+      error: '信息不完整。',
+      name: name,
+      email: email
+    });
     return;
   }
 
   if (name.length < 5) {
-    res.render('sign/signup', {error: '用户名至少需要5个字符。', name: name, email: email});
+    res.render('sign/signup', {
+      error: '用户名至少需要5个字符。',
+      name: name,
+      email: email
+    });
     return;
   }
 
   try {
     check(name, '用户名只能使用0-9，a-z，A-Z。').isAlphanumeric();
   } catch (e) {
-    res.render('sign/signup', {error: e.message, name: name, email: email});
+    res.render('sign/signup', {
+      error: e.message,
+      name: name,
+      email: email
+    });
     return;
   }
 
   if (pass !== re_pass) {
-    res.render('sign/signup', {error: '两次密码输入不一致。', name: name, email: email});
+    res.render('sign/signup', {
+      error: '两次密码输入不一致。',
+      name: name,
+      email: email
+    });
     return;
   }
 
   try {
     check(email, '不正确的电子邮箱。').isEmail();
   } catch (e) {
-    res.render('sign/signup', {error: e.message, name: name, email: email});
+    res.render('sign/signup', {
+      error: e.message,
+      name: name,
+      email: email
+    });
     return;
   }
 
-  User.getUsersByQuery({'$or': [{'loginname': loginname}, {'email': email}]}, {}, function (err, users) {
+  User.getUsersByQuery({
+    '$or': [{
+      'loginname': loginname
+    }, {
+      'email': email
+    }]
+  }, {}, function(err, users) {
     if (err) {
       return next(err);
     }
     if (users.length > 0) {
-      res.render('sign/signup', {error: '用户名或邮箱已被使用。', name: name, email: email});
+      res.render('sign/signup', {
+        error: '用户名或邮箱已被使用。',
+        name: name,
+        email: email
+      });
       return;
     }
 
@@ -68,7 +107,7 @@ exports.signup = function (req, res, next) {
     // create gavatar
     var avatar_url = 'http://www.gravatar.com/avatar/' + md5(email.toLowerCase()) + '?size=48';
 
-    User.newAndSave(name, loginname, pass, email, avatar_url, false, function (err) {
+    User.newAndSave(name, loginname, pass, email, avatar_url, false, function(err) {
       if (err) {
         return next(err);
       }
@@ -87,7 +126,7 @@ exports.signup = function (req, res, next) {
  * @param  {HttpRequest} req
  * @param  {HttpResponse} res
  */
-exports.showLogin = function (req, res) {
+exports.showLogin = function(req, res) {
   req.session._loginReferer = req.headers.referer;
   res.render('sign/signin');
 };
@@ -98,9 +137,9 @@ exports.showLogin = function (req, res) {
  */
 var notJump = [
   '/active_account', //active page
-  '/reset_pass',     //reset password page, avoid to reset twice
-  '/signup',         //regist page
-  '/search_pass'    //serch pass page
+'/reset_pass', //reset password page, avoid to reset twice
+'/signup', //regist page
+'/search_pass' //serch pass page
 ];
 
 /**
@@ -110,29 +149,37 @@ var notJump = [
  * @param {HttpResponse} res
  * @param {Function} next
  */
-exports.login = function (req, res, next) {
+exports.login = function(req, res, next) {
   var loginname = sanitize(req.body.name).trim().toLowerCase();
   var pass = sanitize(req.body.pass).trim();
 
   if (!loginname || !pass) {
-    return res.render('sign/signin', { error: '信息不完整。' });
+    return res.render('sign/signin', {
+      error: '信息不完整。'
+    });
   }
 
-  User.getUserByLoginName(loginname, function (err, user) {
+  User.getUserByLoginName(loginname, function(err, user) {
     if (err) {
       return next(err);
     }
     if (!user) {
-      return res.render('sign/signin', { error: '这个用户不存在。' });
+      return res.render('sign/signin', {
+        error: '这个用户不存在。'
+      });
     }
     pass = md5(pass);
     if (pass !== user.pass) {
-      return res.render('sign/signin', { error: '密码错误。' });
+      return res.render('sign/signin', {
+        error: '密码错误。'
+      });
     }
     if (!user.active) {
       // 从新发送激活邮件
       mail.sendActiveMail(user.email, md5(user.email + config.session_secret), user.name, user.email);
-      return res.render('sign/signin', { error: '此帐号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。' });
+      return res.render('sign/signin', {
+        error: '此帐号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。'
+      });
     }
     // store session cookie
     gen_session(user, res);
@@ -149,68 +196,84 @@ exports.login = function (req, res, next) {
 };
 
 // sign out
-exports.signout = function (req, res, next) {
+exports.signout = function(req, res, next) {
   req.session.destroy();
-  res.clearCookie(config.auth_cookie_name, { path: '/' });
+  res.clearCookie(config.auth_cookie_name, {
+    path: '/'
+  });
   res.redirect(req.headers.referer || 'home');
 };
 
-exports.active_account = function (req, res, next) {
+exports.active_account = function(req, res, next) {
   var key = req.query.key;
   var name = req.query.name;
 
-  User.getUserByName(name, function (err, user) {
+  User.getUserByName(name, function(err, user) {
     if (err) {
       return next(err);
     }
     if (!user || md5(user.email + config.session_secret) !== key) {
-      return res.render('notify/notify', {error: '信息有误，帐号无法被激活。'});
+      return res.render('notify/notify', {
+        error: '信息有误，帐号无法被激活。'
+      });
     }
     if (user.active) {
-      return res.render('notify/notify', {error: '帐号已经是激活状态。'});
+      return res.render('notify/notify', {
+        error: '帐号已经是激活状态。'
+      });
     }
     user.active = true;
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) {
         return next(err);
       }
-      res.render('notify/notify', {success: '帐号已被激活，请登录'});
+      res.render('notify/notify', {
+        success: '帐号已被激活，请登录'
+      });
     });
   });
 };
 
-exports.showSearchPass = function (req, res) {
+exports.showSearchPass = function(req, res) {
   res.render('sign/search_pass');
 };
 
-exports.updateSearchPass = function (req, res, next) {
+exports.updateSearchPass = function(req, res, next) {
   var email = req.body.email;
   email = email.toLowerCase();
 
   try {
     check(email, '不正确的电子邮箱。').isEmail();
   } catch (e) {
-    res.render('sign/search_pass', {error: e.message, email: email});
+    res.render('sign/search_pass', {
+      error: e.message,
+      email: email
+    });
     return;
   }
 
   // 动态生成retrive_key和timestamp到users collection,之后重置密码进行验证
   var retrieveKey = randomString(15);
   var retrieveTime = new Date().getTime();
-  User.getUserByMail(email, function (err, user) {
+  User.getUserByMail(email, function(err, user) {
     if (!user) {
-      res.render('sign/search_pass', {error: '没有这个电子邮箱。', email: email});
+      res.render('sign/search_pass', {
+        error: '没有这个电子邮箱。',
+        email: email
+      });
       return;
     }
     user.retrieve_key = retrieveKey;
     user.retrieve_time = retrieveTime;
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) {
         return next(err);
       }
       // 发送重置密码邮件
       mail.sendResetPassMail(email, retrieveKey, user.name);
-      res.render('notify/notify', {success: '我们已给您填写的电子邮箱发送了一封邮件，请在24小时内点击里面的链接来重置密码。'});
+      res.render('notify/notify', {
+        success: '我们已给您填写的电子邮箱发送了一封邮件，请在24小时内点击里面的链接来重置密码。'
+      });
     });
   });
 };
@@ -223,46 +286,67 @@ exports.updateSearchPass = function (req, res, next) {
  * @param  {http.res}   res
  * @param  {Function} next
  */
-exports.reset_pass = function (req, res, next) {
+exports.reset_pass = function(req, res, next) {
   var key = req.query.key;
   var name = req.query.name;
-  User.getUserByQuery({name: name, retrieve_key: key}, function (err, user) {
+  User.getUserByQuery({
+    name: name,
+    retrieve_key: key
+  }, function(err, user) {
     if (!user) {
-      return res.render('notify/notify', {error: '信息有误，密码无法重置。'});
+      return res.render('notify/notify', {
+        error: '信息有误，密码无法重置。'
+      });
     }
     var now = new Date().getTime();
     var oneDay = 1000 * 60 * 60 * 24;
     if (!user.retrieve_time || now - user.retrieve_time > oneDay) {
-      return res.render('notify/notify', {error : '该链接已过期，请重新申请。'});
+      return res.render('notify/notify', {
+        error: '该链接已过期，请重新申请。'
+      });
     }
-    return res.render('sign/reset', {name : name, key : key});
+    return res.render('sign/reset', {
+      name: name,
+      key: key
+    });
   });
 };
 
-exports.update_pass = function (req, res, next) {
+exports.update_pass = function(req, res, next) {
   var psw = req.body.psw || '';
   var repsw = req.body.repsw || '';
   var key = req.body.key || '';
   var name = req.body.name || '';
   if (psw !== repsw) {
-    return res.render('sign/reset', {name : name, key : key, error : '两次密码输入不一致。'});
+    return res.render('sign/reset', {
+      name: name,
+      key: key,
+      error: '两次密码输入不一致。'
+    });
   }
-  User.getUserByQuery({name: name, retrieve_key: key}, function (err, user) {
+  User.getUserByQuery({
+    name: name,
+    retrieve_key: key
+  }, function(err, user) {
     if (err) {
       return next(err);
     }
     if (!user) {
-      return res.render('notify/notify', {error : '错误的激活链接'});
+      return res.render('notify/notify', {
+        error: '错误的激活链接'
+      });
     }
     user.pass = md5(psw);
     user.retrieve_key = null;
     user.retrieve_time = null;
     user.active = true; // 用户激活
-    user.save(function (err) {
+    user.save(function(err) {
       if (err) {
         return next(err);
       }
-      return res.render('notify/notify', {success: '你的密码已重置。'});
+      return res.render('notify/notify', {
+        success: '你的密码已重置。'
+      });
     });
   });
 };
@@ -279,12 +363,12 @@ function getAvatarURL(user) {
 }
 
 // auth_user middleware
-exports.auth_user = function (req, res, next) {
+exports.auth_user = function(req, res, next) {
   if (req.session.user) {
     if (config.admins[req.session.user.name]) {
       req.session.user.is_admin = true;
     }
-    Message.getMessagesCount(req.session.user._id, function (err, count) {
+    Message.getMessagesCount(req.session.user._id, function(err, count) {
       if (err) {
         return next(err);
       }
@@ -304,7 +388,7 @@ exports.auth_user = function (req, res, next) {
     var auth_token = decrypt(cookie, config.session_secret);
     var auth = auth_token.split('\t');
     var user_id = auth[0];
-    User.getUserById(user_id, function (err, user) {
+    User.getUserById(user_id, function(err, user) {
       if (err) {
         return next(err);
       }
@@ -312,7 +396,7 @@ exports.auth_user = function (req, res, next) {
         if (config.admins[user.name]) {
           user.is_admin = true;
         }
-        Message.getMessagesCount(user._id, function (err, count) {
+        Message.getMessagesCount(user._id, function(err, count) {
           if (err) {
             return next(err);
           }
@@ -330,9 +414,13 @@ exports.auth_user = function (req, res, next) {
 };
 
 // private
+
 function gen_session(user, res) {
   var auth_token = encrypt(user._id + '\t' + user.name + '\t' + user.pass + '\t' + user.email, config.session_secret);
-  res.cookie(config.auth_cookie_name, auth_token, {path: '/', maxAge: 1000 * 60 * 60 * 24 * 30}); //cookie 有效期30天
+  res.cookie(config.auth_cookie_name, auth_token, {
+    path: '/',
+    maxAge: 1000 * 60 * 60 * 24 * 30
+  }); //cookie 有效期30天
 }
 
 function encrypt(str, secret) {
