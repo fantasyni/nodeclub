@@ -40,11 +40,16 @@
   <body>
     <!-- navbar -->
     <div class='navbar'>
+      <div class='navbar-bar'>
+        <div class='cnt'>
+          <span>gitHub:<a href='http://github.com/NetEase/pomelo' title='http://github.com/NetEase/pomelo' target='_blank'>http://github.com/NetEase/pomelo</a></span>
+        </div>
+      </div>
       <div class='navbar-inner'>
         <div class='container'>
           <a class='brand' href='/'><%- config.site_logo || config.name %></a>
           <form id='search_form' class='navbar-search' action="/">
-            <input type='text' id='q' name='q' class='search-query span3' value='<%= locals.keyword || '' %>'/>
+            <input type='text' id='q' name='q' class='search-query span3' value='<%= locals.keyword || '' %>' placeholder='Search...' />
           </form>
           <ul class='nav pull-right'>
             <li><a href='/'>首页</a></li>
@@ -84,21 +89,7 @@
     <!-- footer -->
     <div id='footer'>
       <div id='footer_main'>
-        <div class='fr'>
-        </div>
-        <div>
-          <a class='dark' href='/about'><strong>关于</strong></a>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <a class='dark' href='/faq'><strong>FAQ</strong></a>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <a class='dark' href='https://github.com/cnodejs/nodeclub/' target="_blank"><strong>Github</strong></a>
-          &nbsp;&nbsp;|&nbsp;&nbsp;
-          <a class='dark' href='/rss' target="_blank"><strong>RSS</strong></a>
-        </div>
-        <div class='sep10'></div>
-        <div class='col_fade'>
-          &copy; 2013 <br>本社区为开源系统，版本: <%= config.version %> ，欢迎贡献代码<br>
-        </div>
+        Pomelo by Netease, Inc. Rleased under the MIT license-Copyright &copy; Netease 2013
       </div>
     </div>
   </body>
