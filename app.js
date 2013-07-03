@@ -82,10 +82,10 @@ app.use('/user_data/', express.static(path.join(__dirname, 'public', 'user_data'
 var staticDir = path.join(__dirname, 'public');
 app.configure('development', function() {
   app.use(express.static(staticDir));
-  app.use(express.errorHandler({
-    dumpExceptions: true,
-    showStack: true
-  }));
+  // app.use(express.errorHandler({
+  // dumpExceptions: true,
+  // showStack: true
+  // }));
 });
 
 app.configure('production', function() {
