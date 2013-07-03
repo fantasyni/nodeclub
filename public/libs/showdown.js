@@ -94,9 +94,9 @@ if (typeof exports !== "undefined") {
   Showdown = exports;
   var config = require('../../config').config;
   HOST = 'http://' + config.host;
-  if (config.port !== 80) {
-    HOST += ':' + config.port;
-  }
+  // if (config.port !== 80) {
+  // HOST += ':' + config.port;
+  // }
 } else {
   HOST = window.location.protocol + '//' + window.location.host;
 }
@@ -640,7 +640,7 @@ var writeAnchorTag = function(wholeMatch,m1,m2,m3,m4,m5,m6,m7) {
       }
     }
   }
-  url = isUrl(url) ? url : HOST + url;
+    url = isUrl(url) ? url : HOST + url;
   
   url = escapeCharacters(url,"*_");
   var result = "<a href=\"" + url + "\"";
