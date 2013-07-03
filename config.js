@@ -12,12 +12,14 @@ exports.config = {
   hostname: 'nodejs.netease.com',
   // site settings
   site_headers: [
-    '<meta name="author" content="pomelo@NetEase" />', ],
-  host: '0.0.0.0',
+      '<meta name="author" content="pomelo@NetEase" />',
+  ],
+  host: 'pomelo.netease.com',
   site_logo: '', // default is `name`
   site_navs: [
-  // [ path, title, [target=''] ]
-  ['/about', '关于'], ],
+    // [ path, title, [target=''] ]
+    ['/about', '关于'],
+  ],
   site_static_host: '', // 静态文件存储域名
   site_enable_search_preview: false, // 开启google search preview
   site_google_search_domain: 'pomelo.netease.com', // google search preview中要搜索的域名
@@ -45,29 +47,31 @@ exports.config = {
 
   // site links
   site_links: [{
-    'text': 'Node 官方网站',
-    'url': 'http://nodejs.org/'
-  }, {
-    'text': 'Pomelo 官方网站',
-    'url': 'http://pomelo.netease.com/'
-  }, {
-    'text': 'Pomelo github 地址',
-    'url': 'https://github.com/NetEase/pomelo'
-  }, {
-    'text': 'Pomelo 中文开发文档',
-    'url': 'https://github.com/NetEase/pomelo/wiki/Home-in-Chinese'
-  }],
+      'text': 'Node 官方网站',
+      'url': 'http://nodejs.org/'
+    }, {
+      'text': 'Pomelo 官方网站',
+      'url': 'http://pomelo.netease.com/'
+    }, {
+      'text': 'Pomelo github 地址',
+      'url': 'https://github.com/NetEase/pomelo'
+    }, {
+      'text': 'Pomelo 中文开发文档',
+      'url': 'https://github.com/NetEase/pomelo/wiki/Home-in-Chinese'
+    }
+  ],
 
   // sidebar ads
   side_ads: [{
-    'url': 'http://pomelo.netease.com/',
-    'image': 'http://pomelo.netease.com/image/logo.png',
-    'text': ''
-  }, {
-    'url': 'http://cnodejs.org/',
-    'image': 'http://cnodejs.org/images/logo.png',
-    'text': ''
-  }],
+      'url': 'http://pomelo.netease.com/',
+      'image': 'http://pomelo.netease.com/image/logo.png',
+      'text': ''
+    }, {
+      'url': 'http://cnodejs.org/',
+      'image': 'http://cnodejs.org/public/images/logo.png',
+      'text': ''
+    }
+  ],
 
   // mail SMTP
   mail_opts: {
@@ -95,7 +99,7 @@ exports.config = {
 
   // [ { name: 'plugin_name', options: { ... }, ... ]
   plugins: [
-  // { name: 'onehost', options: { host: 'localhost.cnodejs.org' } },
-  // { name: 'wordpress_redirect', options: {} }
+    // { name: 'onehost', options: { host: 'localhost.cnodejs.org' } },
+    // { name: 'wordpress_redirect', options: {} }
   ]
 };
