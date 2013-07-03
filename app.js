@@ -108,3 +108,8 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 module.exports = app;
+
+// Uncaught exception handler
+process.on('uncaughtException', function(err) {
+  console.error(' Caught exception: ' + err.stack);
+});
