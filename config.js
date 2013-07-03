@@ -14,7 +14,7 @@ exports.config = {
   site_headers: [
       '<meta name="author" content="pomelo@NetEase" />',
   ],
-  host: 'pomelo.netease.com',
+  host: 'nodejs.netease.com',
   site_logo: '', // default is `name`
   site_navs: [
     // [ path, title, [target=''] ]
