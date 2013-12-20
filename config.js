@@ -6,15 +6,15 @@ var path = require('path');
 
 exports.config = {
   debug: false,
-  name: 'Yixin Club',
-  description: 'Yixin Club 是专业 yixin 开发者官方社区',
+  name: 'Pomelo Club',
+  description: 'Pomelo Club 是专业讨论 pomelo 的官方社区',
   version: '0.2.2',
-  hostname: 'dev.yixin.im',
+  hostname: 'nodejs.netease.com',
   // site settings
   site_headers: [
       '<meta name="author" content="pomelo@NetEase" />',
   ],
-  host: 'dev.yixin.im',
+  host: 'nodejs.netease.com',
   site_logo: '', // default is `name`
   site_navs: [
     // [ path, title, [target=''] ]
@@ -22,24 +22,24 @@ exports.config = {
   ],
   site_static_host: '', // 静态文件存储域名
   site_enable_search_preview: false, // 开启google search preview
-  site_google_search_domain: 'dev.yixin.im', // google search preview中要搜索的域名
+  site_google_search_domain: 'pomelo.netease.com', // google search preview中要搜索的域名
 
   upload_dir: path.join(__dirname, 'public', 'user_data', 'images'),
 
-  db: 'mongodb://10.120.147.141:17901/yixin_club',
-  session_secret: 'yixin_club',
-  auth_cookie_name: 'yixin_club',
-  port: 8181,
+  db: 'mongodb://127.0.0.1/pomelo_club_dev',
+  session_secret: 'pomelo_club',
+  auth_cookie_name: 'pomelo_club',
+  port: 3000,
 
   // 话题列表显示的话题数量
   list_topic_count: 20,
 
   // RSS
   rss: {
-    title: 'Yixin：yixin开发者专业中文社区',
-    link: 'http://dev.yixin.im',
+    title: 'Pomelo：pomelo专业中文社区',
+    link: 'http://nodejs.netease.com',
     language: 'zh-cn',
-    description: 'Yixin：yixin开发者专业中文社区',
+    description: 'Pomelo：pomelo专业中文社区',
 
     //最多获取的RSS Item数量
     max_rss_items: 50
@@ -47,14 +47,17 @@ exports.config = {
 
   // site links
   site_links: [{
-      'text': '易信官网',
-      'url': 'http://yixin.im/'
+      'text': 'Node 官方网站',
+      'url': 'http://nodejs.org/'
     }, {
-      'text': '易信开放平台',
-      'url': 'http://open.yixin.im/'
+      'text': 'Pomelo 官方网站',
+      'url': 'http://pomelo.netease.com/'
     }, {
-      'text': '易信公众平台',
-      'url': 'https://plus.yixin.im/'
+      'text': 'Pomelo github 地址',
+      'url': 'https://github.com/NetEase/pomelo'
+    }, {
+      'text': 'Pomelo 中文开发文档',
+      'url': 'https://github.com/NetEase/pomelo/wiki/Home-in-Chinese'
     }
   ],
 
@@ -75,7 +78,7 @@ exports.config = {
     host: 'smtp.126.com',
     port: 25,
     auth: {
-      user: 'yixin_dev@126.com',
+      user: 'pomelonode@126.com',
       pass: 'pomelo20120305'
     }
   },
