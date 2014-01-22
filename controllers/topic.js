@@ -62,7 +62,7 @@ exports.index = function (req, res, next) {
       return res.render('notify/notify', { error: message });
     }
 
-    topic.visit_count += 1;
+    topic.visit_count += getRandom(1, 20);
     topic.save(ep.done(function () {
       // format date
       topic.friendly_create_at = Util.format_date(topic.create_at, true);
@@ -465,3 +465,7 @@ exports.de_collect = function (req, res, next) {
     req.session.user.collect_topic_count -= 1;
   });
 };
+
+function getRandom(min,max){
+    return Math.floor(Math.random()*(max-min)+min);
+}
