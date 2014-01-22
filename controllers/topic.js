@@ -467,5 +467,6 @@ exports.de_collect = function (req, res, next) {
 };
 
 function getRandom(min,max){
-    return Math.floor(Math.random()*(max-min)+min);
+    // return Math.floor(Math.random()*(max-min)+min);
+    return 1;
 }
